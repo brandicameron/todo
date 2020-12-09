@@ -1,0 +1,239 @@
+:root {
+	--white: #f2f1f1;
+	--accent-color: #6b6bff;
+	--valid: #b0f721;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	box-sizing: border-box;
+	font-family: sans-serif;
+	background: #1d1d1d;
+	color: var(--white);
+}
+
+.login-form,
+.signup-form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 325px;
+	margin: 0 auto;
+}
+
+input, 
+.form-btns {
+	background: #212020;
+	padding: 20px 3px 20px 15px;
+	border-radius: 20px;
+	font-size: 1.1rem;
+	margin: 10px 0;
+	border: 1px solid var(--accent-color);
+	box-shadow: 15px 20px 40px -15px rgb(2 2 2 / 90%);
+	color: var(--white);
+}
+
+.form-btns {
+	cursor: pointer;
+	transition: background .150s ease;
+}
+
+.form-btns:disabled {
+	background: #5d5d5d;
+	opacity: .3;
+	cursor: not-allowed;
+	border: none;
+}
+
+.form-btns:hover {
+	background: var(--accent-color);
+}
+
+.logout-btn {
+	position: absolute;
+	top: 0;
+	right: -2px;
+	margin: -4px 0;
+	width: 110px;
+	border-radius: 0 0 0 20px;
+	
+}
+
+input:focus, 
+.form-btns:focus {
+	outline: none;
+	border: 3px solid var(--accent-color);
+}
+
+.signup {
+	padding: 10px;
+	font-style: italic;
+	cursor: pointer;
+}
+
+.signup-ul {
+	margin: 8px 0;
+}
+
+.signup-li {
+	list-style: none;
+	margin: 5px 0;
+	font-size: .85rem;
+}
+
+.signup-li::before {
+	content: '✕';
+	padding-right: 8px;
+	color: red;
+	font-size: 1rem;
+}
+
+.signup-li.check::before {
+	content: '✓';
+	padding-right: 8px;
+	color: var(--valid);
+	font-size: 1.5rem;
+	line-height: 60%;
+}
+
+input[type=email]:invalid {
+	color: orangered;
+}
+
+.error-msg {
+	padding: 20px;
+	color: red;
+	font-size: 1.1rem;
+}
+
+/*
+input[type=email]:valid {
+	color: var(--valid);
+}
+*/
+
+.valid {
+	color: var(--valid);
+}
+
+.container {
+	width: 100vw;
+	height: 90vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0 7vw;
+}
+
+h1 {
+	text-align: center;
+	margin-top: 60px;
+}
+
+.todos > li,
+.todo-input {
+	position: relative;
+	display: flex;
+	align-items: center;
+	list-style: none;
+	background: #262626;
+	padding: 10px 3px 10px 15px;
+	border-radius: 20px;
+	font-size: 1.2rem;
+	margin: 10px 0;
+	box-shadow: 15px 20px 40px -15px rgb(2 2 2 / 90%);
+	min-width: 300px;
+}
+
+.todos > li:focus {
+	outline: none;
+	border-radius: 20px;
+}
+
+
+.new-task-container {
+	position: relative;
+	display: flex;
+	margin: 30px auto 0 auto;
+	justify-content: center;
+	align-items: center;
+}
+
+.todo-input {
+	border: none;
+	color: var(--white);
+	font-size: 1.1rem;
+	width: 100%;
+	border: 1px solid var(--accent-color);
+	padding: 20px;
+}
+
+.todo-input:focus {
+	outline: none;
+	border: 1px solid var(--accent-color);
+	border-radius: 20px;
+}
+
+
+.bullet {
+	min-width: 18px;
+	min-height: 18px;
+	border: 2px solid var(--accent-color);
+	border-radius: 50%;
+	background: #212020;
+	margin-right: 10px;
+	cursor: pointer;
+	color: transparent;
+}
+
+.complete {
+	opacity: .5;
+	text-decoration: line-through;
+}
+
+.done {
+	background: var(--accent-color);
+}
+
+.done:before {
+	content: "✓";
+	color: var(--white);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 10px;
+	height: 10px;
+	padding: 7px;
+}
+
+.delete-btn {
+	position: relative;
+	background: transparent;
+	background-image: url(../img/trash-can.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px;
+	border: none;
+	width: 50px;
+	height: 40px;
+	margin-left: auto;
+}
+
+.delete-btn:focus {
+	outline: none;
+}
+
+.delete-btn:hover {
+	background-image: url(../img/trash-can-hover.svg);
+	filter: brightness(1.2);
+}
+
+.hide {
+	display: none;
+}
