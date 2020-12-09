@@ -222,8 +222,9 @@ function displayTodos(individualDoc) {
 
 submitBtn.addEventListener('click', addTodosToFirebase);
 
-submitBtn.addEventListener('keyup', (e) => {
+submitBtn.addEventListener('keypress', (e) => {
 	if (e.keyCode === 13) {
+		e.preventDefault();
 		addTodosToFirebase();
 	}
 });
