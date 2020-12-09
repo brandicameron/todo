@@ -221,7 +221,12 @@ function displayTodos(individualDoc) {
 
 
 submitBtn.addEventListener('click', addTodosToFirebase);
-submitBtn.addEventListener('focusout', addTodosToFirebase);
+
+submitBtn.addEventListener('keyup', (e) => {
+	if (e.keyCode === 13) {
+		addTodosToFirebase();
+	}
+});
 
 
 // realtime listener
