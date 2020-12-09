@@ -61,7 +61,6 @@ input,
 	margin: -4px 0;
 	width: 110px;
 	border-radius: 0 0 0 20px;
-	
 }
 
 input:focus, 
@@ -232,6 +231,12 @@ h1 {
 .delete-btn:hover {
 	background-image: url(../img/trash-can-hover.svg);
 	filter: brightness(1.2);
+}
+
+#submit {
+	background: transparent;
+	outline: none;
+	border: none;
 }
 
 .hide {
