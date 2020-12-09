@@ -221,6 +221,7 @@ function displayTodos(individualDoc) {
 
 
 submitBtn.addEventListener('click', addTodosToFirebase);
+submitBtn.addEventListener('focusout', addTodosToFirebase);
 
 
 // realtime listener
