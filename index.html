@@ -15,74 +15,55 @@
 
 <body>
 
-	<div class="container signup-page hide">
-		<form class="signup-form" autocomplete="off">
-			<h1>Sign Up</h1>
-			<input type="email" id="signup-email" placeholder="Email" required>
-			<input type="password" id="signup-password" placeholder="Password" required>
-			<ul class="signup-ul">
-				<li class="signup-li">must contain a capital letter</li>
-				<li class="signup-li">must be at least 5 characters</li>
-				<li class="signup-li">must contain a number</li>
-				<li class="signup-li">must contain one special character ( !@#$%^&amp; )</li>
-			</ul>
-			<button id="signup-btn" class="form-btns" disabled="true">Sign Up</button>
-			<p id="return-login" class="signup">...click  to return to login page. 
-			<div id="signup-error" class="error-msg"></div>
-		</form>
-	</div>
-
-
-	<div class="container login-page">
-		<form class="login-form">
-			<h1>Login</h1>
-			<input type="email" id="login-email" placeholder="Email" required>
-			<input type="password" id="login-password" placeholder="Password" required>
-			<button id="login-btn" class="form-btns">Login</button>
-			<p id="signup-link" class="signup">...or click here to sign up. </p>
-			<div id="login-error" class="error-msg"></div>
-		</form>
-	</div>
-
-
-	<div class="container main-page hide">
-		<h1>Today I will...</h1>
-		<div class="todo-container">
-			<ul class="todos"></ul>
-			<form class="new-task-container">
-				<input type="text" placeholder="+ Add a Task" id="todo-input" class="todo-input" autofocus>
-				<button type="submit" id="submit"></button>
+	<main class="hide fade-in">
+		<div class="container signup-page hide">
+			<form class="signup-form" autocomplete="off">
+				<h1>Sign Up</h1>
+				<input type="email" id="signup-email" placeholder="Email" required>
+				<input type="password" id="signup-password" placeholder="Password" required>
+				<ul class="signup-ul">
+					<li class="signup-li">must contain a capital letter</li>
+					<li class="signup-li">must be at least 5 characters</li>
+					<li class="signup-li">must contain a number</li>
+					<li class="signup-li">must contain one special character ( !@#$%^&amp; )</li>
+				</ul>
+				<button id="signup-btn" class="form-btns" disabled="true">Sign Up</button>
+				<p id="return-login" class="signup">...click to return to login page.
+					<div id="signup-error" class="error-msg"></div>
 			</form>
+		</div>
+
+
+		<div class="container login-page">
+			<form class="login-form">
+				<h1>Login</h1>
+				<input type="email" id="login-email" placeholder="Email" required>
+				<input type="password" id="login-password" placeholder="Password" autocomplete="current-password" required>
+				<button id="login-btn" class="form-btns">Login</button>
+				<p id="signup-link" class="signup">...or click here to sign up. </p>
+				<div id="login-error" class="error-msg"></div>
+			</form>
+		</div>
+
+
+		<div class="container main-page hide">
+			<h1>Today I will...</h1>
+			<div class="todo-container">
+				<ul class="todos"></ul>
+				<form class="new-task-container" autocomplete="off">
+					<input type="text" placeholder="+ Add a Task" id="todo-input" class="todo-input" autofocus>
+					<button type="submit" id="submit"></button>
+				</form>
+			</div>
 			<button id="logout-btn" class="form-btns logout-btn">Log Out</button>
 		</div>
-	</div>
+	</main>
 
 
 	<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
-
 	<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
-
-	<script>
-		var firebaseConfig = {
-			apiKey: "AIzaSyAXBL7d1xz373WGkzqYNtDEQol_H8lHoaA",
-			authDomain: "todo-952a0.firebaseapp.com",
-			projectId: "todo-952a0",
-			storageBucket: "todo-952a0.appspot.com",
-			messagingSenderId: "777451288200",
-			appId: "1:777451288200:web:6473b4e12e3657b7b2d13d",
-			measurementId: "G-HRRPZHCMM5"
-		};
-
-//		Initialize Firebase
-//		firebase.initializeApp(firebaseConfig);
-//		firebase.analytics();
-//
-//		const auth = firebase.auth();
-//		const db = firebase.firestore();
-	</script>
-
 	<script src="js/main.js"></script>
 </body>
 

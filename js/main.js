@@ -1,9 +1,12 @@
-// TO DO 
-
-// • Uncomment ShowMainPage function in auth state when done testing login
-// • Link "New User, sign up here to proper form
-
-
+var firebaseConfig = {
+			apiKey: "AIzaSyAXBL7d1xz373WGkzqYNtDEQol_H8lHoaA",
+			authDomain: "todo-952a0.firebaseapp.com",
+			projectId: "todo-952a0",
+			storageBucket: "todo-952a0.appspot.com",
+			messagingSenderId: "777451288200",
+			appId: "1:777451288200:web:6473b4e12e3657b7b2d13d",
+			measurementId: "G-HRRPZHCMM5"
+		};
 
 //		Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -68,7 +71,7 @@ function signUpUser(e) {
 				Password: password
 			}).then(() => {
 				console.log('success!');
-				showMainPage();
+				showTodoList();
 			}).catch((err) => {
 				const signupError = document.getElementById('signup-error');
 				//				signupError.textContent = err.message;
@@ -80,47 +83,38 @@ function signUpUser(e) {
 
 function loginUser(e) {
 	e.preventDefault();
-
 	const email = document.getElementById('login-email').value;
 	const password = document.getElementById('login-password').value;
 
-	//	console.log(email, password);
-
 	auth.signInWithEmailAndPassword(email, password)
 		.then(() => {
-			showMainPage();
+			showTodoList();
 		}).catch((err) => {
 			const loginError = document.getElementById('login-error');
 			loginError.textContent = "Username or password is incorrect.";
 		})
 }
 
-
+// Hides/Displays login page or content page depending if logged in
 auth.onAuthStateChanged((user) => {
 	if (user) {
 		console.log('You are signed in!');
-		showMainPage();
+		showTodoList();
 	} else {
 		console.log('You are NOT signed in!');
-		hideMainPage();
+		showLoginPage();
 	}
 });
 
 
-// Delete me when ready
-//	auth.onAuthStateChanged((user) => {
-//		console.log(user.uid);
-//	})
-
-
-
-function showMainPage() {
+function showTodoList() {
 	signUpPage.classList.add('hide');
 	loginPage.classList.add('hide');
 	mainPage.classList.remove('hide');
 }
 
-function hideMainPage() {
+
+function showLoginPage() {
 	signUpPage.classList.add('hide');
 	loginPage.classList.remove('hide');
 	mainPage.classList.add('hide');
@@ -153,9 +147,6 @@ returnLoginLink.addEventListener('click', () => {
 
 
 
-
-
-
 // TODOS
 
 const todoUl = document.querySelector('.todos');
@@ -173,28 +164,33 @@ function addTodo() {
 
 function addTodosToFirebase(e) {
 	e.preventDefault();
-
 	let todo = todoInput.value;
 	let id = Date.now();
 	form.reset();
+	
 
-	auth.onAuthStateChanged((user) => {
+	if (todo === "") {
+		return;
+	} else {
+		auth.onAuthStateChanged((user) => {
 		if (user) {
 			db.collection(user.uid).doc('+' + id).set({
 				id: '+' + id,
 				todo
 			}).then(() => {
-				console.log('todo added!');
 			}).catch((error) => {
 				console.log('error!');
 			})
 		}
 	})
+	}
+	
+	
+	
 }
 
 
 function displayTodos(individualDoc) {
-
 	newTodo = document.createElement('li');
 	newTodo.id = individualDoc.id;
 	newTodo.innerHTML = '<span class="bullet"></span>' + " " + individualDoc.data().todo;
@@ -215,19 +211,17 @@ function displayTodos(individualDoc) {
 			}
 		})
 	})
-
-
 }
 
 
 submitBtn.addEventListener('click', addTodosToFirebase);
 
-submitBtn.addEventListener('keypress', (e) => {
-	if (e.keyCode === 13) {
-		e.preventDefault();
-		addTodosToFirebase();
-	}
-});
+//submitBtn.addEventListener('keypress', (e) => {
+//	if (e.keyCode === 13) {
+//		e.preventDefault();
+//		addTodosToFirebase();
+//	}
+//});
 
 
 // realtime listener
@@ -247,52 +241,7 @@ auth.onAuthStateChanged(user => {
 	}
 })
 
-
-
-
-
-
-
-
-
-//
-//function addTodo(e) {
-//	e.preventDefault();
-//	if (todoInput.value === "") {
-//		return;
-//	} else {
-//		newTodo = document.createElement('li');
-//		newTodo.innerHTML = '<span class="bullet"></span>' + " " + todoInput.value;
-//		newTodo.contentEditable = true;
-//		newTodo.className = 'todo-item';
-//		todoUl.appendChild(newTodo);
-//		todoInput.value = "";
-//		let deleteBtn = document.createElement('button');
-//		newTodo.appendChild(deleteBtn);
-//		deleteBtn.className = 'delete-btn delete';
-//	}
-//
-//}
-//
-//function markCompleted(e) {
-//	if (e.target.classList.contains('bullet')) {
-//		e.target.classList.toggle('done');
-//		let li = e.target.parentElement;
-//		li.classList.toggle('complete');
-//		//				todoUl.appendChild(li);
-//	}
-//};
-//
-//function deleteTodo(e) {
-//	if (e.target.classList.contains('delete')) {
-//		let li = e.target.parentElement;
-//		todoUl.removeChild(li);
-//	}
-//};
-//
-//// TODO LIST EVENT LISTENERS
-//
-//
-//submitBtn.addEventListener('click', addTodo);
-//todoUl.addEventListener('click', markCompleted);
-//todoUl.addEventListener('click', deleteTodo);
+window.onload = setTimeout(() => {
+	document.querySelector('main').classList.remove('hide');
+	document.querySelector('main').classList.add('fade-in');
+}, 500);
