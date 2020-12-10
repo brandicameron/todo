@@ -3,24 +3,26 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Get Shit Done</title>
+	<title>To Do</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="Brandi Cameron | hello@brandicameron.com">
 	<meta name="theme-color" content="#ffffff">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
 
-	<main class="hide fade-in">
+	<main class="hide">
 		<div class="container signup-page hide">
 			<form class="signup-form" autocomplete="off">
 				<h1>Sign Up</h1>
 				<input type="email" id="signup-email" placeholder="Email" required>
-				<input type="password" id="signup-password" placeholder="Password" required>
+				<div class="password-container">
+					<input type="password" id="signup-password" placeholder="Password" required><i class="fa fa-eye eye" aria-hidden="true"></i>
+				</div>
 				<ul class="signup-ul">
 					<li class="signup-li">must contain a capital letter</li>
 					<li class="signup-li">must be at least 5 characters</li>
@@ -38,7 +40,9 @@
 			<form class="login-form">
 				<h1>Login</h1>
 				<input type="email" id="login-email" placeholder="Email" required>
-				<input type="password" id="login-password" placeholder="Password" autocomplete="current-password" required>
+				<div class="password-container">
+					<input type="password" id="login-password" placeholder="Password" autocomplete="current-password" required><i class="fa fa-eye eye" aria-hidden="true"></i>
+				</div>
 				<button id="login-btn" class="form-btns">Login</button>
 				<p id="signup-link" class="signup">...or click here to sign up. </p>
 				<div id="login-error" class="error-msg"></div>

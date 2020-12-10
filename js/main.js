@@ -1,19 +1,21 @@
 var firebaseConfig = {
-			apiKey: "AIzaSyAXBL7d1xz373WGkzqYNtDEQol_H8lHoaA",
-			authDomain: "todo-952a0.firebaseapp.com",
-			projectId: "todo-952a0",
-			storageBucket: "todo-952a0.appspot.com",
-			messagingSenderId: "777451288200",
-			appId: "1:777451288200:web:6473b4e12e3657b7b2d13d",
-			measurementId: "G-HRRPZHCMM5"
-		};
+	apiKey: "AIzaSyAXBL7d1xz373WGkzqYNtDEQol_H8lHoaA",
+	authDomain: "todo-952a0.firebaseapp.com",
+	projectId: "todo-952a0",
+	storageBucket: "todo-952a0.appspot.com",
+	messagingSenderId: "777451288200",
+	appId: "1:777451288200:web:6473b4e12e3657b7b2d13d",
+	measurementId: "G-HRRPZHCMM5"
+};
 
-//		Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+
+// ACCOUNT SIGNUP/LOGIN
 
 const signUpPage = document.querySelector('.signup-page');
 const loginPage = document.querySelector('.login-page');
@@ -28,7 +30,6 @@ const signupLink = document.getElementById('signup-link');
 const returnLoginLink = document.getElementById('return-login');
 
 
-
 function validatePassword(e) {
 	const password = e.target.value;
 	const requirements = document.querySelectorAll('li');
@@ -40,7 +41,6 @@ function validatePassword(e) {
 		(password.search(/[!@#$%^&*]/) > -1)
 	]
 
-	// Checks off each requirement when fulfilled
 	requirements.forEach((item, index) => {
 		validations[index] ? item.classList.add('check') : item.classList.remove('check');
 	})
@@ -56,6 +56,23 @@ function validatePassword(e) {
 		signUpBtn.disabled = true;
 	}
 }
+
+
+function showPassword(e) {
+	if (e.target.previousSibling.type === 'password') {
+		e.target.previousSibling.type = 'text';
+		e.target.className = 'fa fa-eye-slash eye';
+	} else {
+		e.target.previousSibling.type = 'password';
+		e.target.className = 'fa fa-eye eye';
+	}
+}
+
+let icons = document.querySelectorAll('i');
+icons.forEach((icon) => {
+	icon.addEventListener('click', showPassword);
+})
+
 
 
 function signUpUser(e) {
@@ -74,7 +91,6 @@ function signUpUser(e) {
 				showTodoList();
 			}).catch((err) => {
 				const signupError = document.getElementById('signup-error');
-				//				signupError.textContent = err.message;
 				signupError.textContent = "ERROR: Sign up failed. Please try again.";
 			})
 		})
@@ -113,11 +129,16 @@ function showTodoList() {
 	mainPage.classList.remove('hide');
 }
 
-
 function showLoginPage() {
 	signUpPage.classList.add('hide');
 	loginPage.classList.remove('hide');
 	mainPage.classList.add('hide');
+}
+
+function showSignUpPage() {
+	loginPage.classList.add('hide');
+	mainPage.classList.add('hide');
+	signUpPage.classList.remove('hide');
 }
 
 
@@ -132,18 +153,8 @@ signupPassword.addEventListener('input', validatePassword);
 signUpBtn.addEventListener('click', signUpUser);
 loginBtn.addEventListener('click', loginUser);
 logoutBtn.addEventListener('click', logout);
-
-signupLink.addEventListener('click', () => {
-	signUpPage.classList.remove('hide');
-	loginPage.classList.add('hide');
-	mainPage.classList.add('hide');
-})
-
-returnLoginLink.addEventListener('click', () => {
-	signUpPage.classList.add('hide');
-	loginPage.classList.remove('hide');
-	mainPage.classList.add('hide');
-})
+signupLink.addEventListener('click', showSignUpPage);
+returnLoginLink.addEventListener('click', showLoginPage);
 
 
 
@@ -153,13 +164,6 @@ const todoUl = document.querySelector('.todos');
 let todoInput = document.getElementById('todo-input');
 const submitBtn = document.getElementById('submit');
 let form = document.querySelector('.new-task-container');
-let todosArray = [];
-
-
-function addTodo() {
-	addTodosToFirebase();
-	displayTodos();
-}
 
 
 function addTodosToFirebase(e) {
@@ -167,40 +171,35 @@ function addTodosToFirebase(e) {
 	let todo = todoInput.value;
 	let id = Date.now();
 	form.reset();
-	
 
 	if (todo === "") {
 		return;
 	} else {
 		auth.onAuthStateChanged((user) => {
-		if (user) {
-			db.collection(user.uid).doc('+' + id).set({
-				id: '+' + id,
-				todo
-			}).then(() => {
-			}).catch((error) => {
-				console.log('error!');
-			})
-		}
-	})
+			if (user) {
+				db.collection(user.uid).doc('+' + id).set({
+					id: '+' + id,
+					todo
+				}).then(() => {}).catch((error) => {
+					console.log('error!');
+				})
+			}
+		})
 	}
-	
-	
-	
 }
 
 
 function displayTodos(individualDoc) {
 	newTodo = document.createElement('li');
 	newTodo.id = individualDoc.id;
-	newTodo.innerHTML = '<span class="bullet"></span>' + " " + individualDoc.data().todo;
-	newTodo.contentEditable = true;
+	newTodo.innerHTML = '<span class="bullet"></span>' + individualDoc.data().todo;
 	newTodo.className = 'todo-item';
 	todoUl.appendChild(newTodo);
 	todoInput.value = "";
 	let deleteBtn = document.createElement('button');
-	newTodo.appendChild(deleteBtn);
 	deleteBtn.className = 'delete-btn delete';
+	deleteBtn.setAttribute('aria-label', 'delete button');
+	newTodo.appendChild(deleteBtn);
 
 	deleteBtn.addEventListener('click', (e) => {
 		let id = e.target.parentElement.id;
@@ -215,13 +214,6 @@ function displayTodos(individualDoc) {
 
 
 submitBtn.addEventListener('click', addTodosToFirebase);
-
-//submitBtn.addEventListener('keypress', (e) => {
-//	if (e.keyCode === 13) {
-//		e.preventDefault();
-//		addTodosToFirebase();
-//	}
-//});
 
 
 // realtime listener
@@ -241,6 +233,7 @@ auth.onAuthStateChanged(user => {
 	}
 })
 
+// prevents flash of login form if user already logg
 window.onload = setTimeout(() => {
 	document.querySelector('main').classList.remove('hide');
 	document.querySelector('main').classList.add('fade-in');

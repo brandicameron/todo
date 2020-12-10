@@ -11,13 +11,10 @@
 }
 
 body {
-	box-sizing: border-box;
 	font-family: sans-serif;
 	background: #1d1d1d;
 	color: var(--white);
 }
-
-
 
 .fade-in {
 	opacity: 0;
@@ -30,12 +27,26 @@ body {
 	}
 }
 
-.login-form,
-.signup-form {
+.container {
+	width: 100vw;
+	height: 90vh;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0 7vw;
+}
+
+h1 {
+	text-align: center;
+	margin-top: 60px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	max-width: 340px;
 	width: 100%;
-	max-width: 325px;
 	margin: 0 auto;
 }
 
@@ -49,6 +60,19 @@ input,
 	border: 1px solid var(--accent-color);
 	box-shadow: 15px 20px 40px -15px rgb(2 2 2 / 90%);
 	color: var(--white);
+	width: 100%;
+}
+
+.password-container {
+	position: relative;
+}
+
+.eye {
+	position: absolute;
+	right: 20px;
+	top: 31px;
+	cursor: pointer;
+	color: #a6a6a6;
 }
 
 .form-btns {
@@ -133,29 +157,9 @@ input[type=email]:invalid {
 	font-size: 1.1rem;
 }
 
-/*
-input[type=email]:valid {
-	color: var(--valid);
-}
-*/
 
 .valid {
 	color: var(--valid);
-}
-
-.container {
-	width: 100vw;
-	height: 90vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 0 7vw;
-}
-
-h1 {
-	text-align: center;
-	margin-top: 60px;
 }
 
 .todos > li,
@@ -171,6 +175,7 @@ h1 {
 	margin: 10px 0;
 	box-shadow: 15px 20px 40px -15px rgb(2 2 2 / 90%);
 	min-width: 300px;
+	max-width: 340px;
 }
 
 .todos > li:focus {
@@ -180,11 +185,7 @@ h1 {
 
 
 .new-task-container {
-	position: relative;
-	display: flex;
-	margin: 30px auto 0 auto;
-	justify-content: center;
-	align-items: center;
+	margin-top: 30px;
 }
 
 .todo-input {
@@ -209,11 +210,15 @@ h1 {
 	border: 2px solid var(--accent-color);
 	border-radius: 50%;
 	background: #212020;
-	margin-right: 10px;
+	margin-right: 12px;
 	cursor: pointer;
 	color: transparent;
 }
 
+
+/*  Need to add the cross off functinality...  */
+
+/*
 .complete {
 	opacity: .5;
 	text-decoration: line-through;
@@ -233,6 +238,7 @@ h1 {
 	height: 10px;
 	padding: 7px;
 }
+*/
 
 .delete-btn {
 	position: relative;
